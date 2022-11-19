@@ -109,7 +109,6 @@ def main():
     # random generation:
     # connections = generate_connections(30, len(nodes))
     connections = [(0, 1), (0, 2), (2, 3), (1, 4), (3, 5), (4, 5)]
-
     # assign the next node for every node
     assign_next_node(nodes, connections)
 
@@ -153,8 +152,16 @@ def main():
             text = font.render(str(round(node.travel_cost)), False, ("black"))
             root.get_surface().blit(text, (node.position[0], node.position[1] - 50))
 
-        # display the shortest distance in green
-        draw_shortest_distance(root, nodes, nodes[end_node_index], start_node_index)
+        try:
+            # display the shortest distance in green
+            draw_shortest_distance(root, nodes, nodes[end_node_index], start_node_index)
+            additional_text = font.render("Total cost: " + str(round(nodes[end_node_index].travel_cost)), False, ("blue"))
+            root.get_surface().blit(additional_text, (10, 10))
+        
+        except:
+            # thrown when there is no route from the start to the end point
+            additional_text = font.render(str("No route from the start to the end point!"), False, ("darkred"))
+            root.get_surface().blit(additional_text, (10, 10))
 
         root.update(60)
 
