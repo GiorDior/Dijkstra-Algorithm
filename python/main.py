@@ -149,7 +149,10 @@ def main():
             else:
                 node.render(root.get_surface(), 5)
             # displaying the travel cost above the node
-            text = font.render(str(round(node.travel_cost)), False, ("black"))
+            if node.travel_cost == 100000000000000000000000:
+                text = font.render(str("∞"), False, ("black"))
+            else:
+                text = font.render(str(round(node.travel_cost)), False, ("black"))
             root.get_surface().blit(text, (node.position[0], node.position[1] - 50))
 
         try:
